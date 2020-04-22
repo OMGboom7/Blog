@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>CentOS图形化界面安装</title>
+      <link href="/2020/04/22/GNOME/"/>
+      <url>/2020/04/22/GNOME/</url>
+      
+        <content type="html"><![CDATA[<h1 id="CentOS桌面安装"><a href="#CentOS桌面安装" class="headerlink" title="CentOS桌面安装"></a>CentOS桌面安装</h1><p>CentOS 7 默认是没有图形化界面的，但在习惯了 Windows 的图形化界面之后，总是希望有一个图形化界面从而方便使用，这里介绍一下 CentOS７安装图形化桌面系统的方法。</p><h2 id="进入-root-模式"><a href="#进入-root-模式" class="headerlink" title="进入 root 模式"></a>进入 root 模式</h2><p>因为权限限制，所以我们需要进入 root 模式，开机使用 root 登陆或者系统运行中切换为 root 用户均可。</p><h2 id="安装-X-窗口系统"><a href="#安装-X-窗口系统" class="headerlink" title="安装  X 窗口系统"></a>安装  X 窗口系统</h2><pre><code class="bash">yum groupinstall &quot;X Window System&quot;</code></pre><p>注意有引号, 然后系统会自动寻找最近的网络进行相关文件的下载<br><img src="https://i.loli.net/2020/04/09/HqOBJgUzWjs9lbr.png" alt="X 窗口系统"></p><p>选择 y ，然后开始下载需要的 package<br><img src="https://i.loli.net/2020/04/09/2nAxjzZkL7qpo4e.png" alt="安装成功"></p><p>当出现 Complete！说明安装成功。<br>在这里我们可以检查一下我们已经安装的软件以及可以安装的软件，命令为</p><pre><code class="bash">yum grouplist</code></pre><p><img src="https://i.loli.net/2020/04/09/zsGMYtLJqnfiuFT.png" alt="软件安装"></p><h2 id="安装图形界面软件-GNOME"><a href="#安装图形界面软件-GNOME" class="headerlink" title="安装图形界面软件 GNOME"></a>安装图形界面软件 GNOME</h2><p>然后我们开始安装我们需要的图形界面软件，GNOME(GNOME Desktop)</p><pre><code class="bash">yum groupinstall &quot;GNOME Desktop&quot; &quot;Graphical Administration Tools&quot;</code></pre><p><img src="https://i.loli.net/2020/04/09/Mqha6siRQvrPTA7.png" alt="GNOME Desktop"></p><p> 选择 y 开始下载需要安装的 package</p><h3 id="Transaction-check-error报错"><a href="#Transaction-check-error报错" class="headerlink" title="Transaction check error报错"></a>Transaction check error报错</h3><p>安装GNOME的时候出现Transaction check error错误，无法安装fwupdate-efi包，导致图形界面安装不了。</p><pre><code class="bash">Transaction check error:file /boot/efi/EFI/centos from install of fwupdate-efi-12-5.el7.centos.x86_64 conflicts with file from package grub2-common-1:2.02-0.65.el7.centos.2.noarch</code></pre><p>这时需要安装grub2-efi软件</p><pre><code class="bash">yum install -y grub2-efi</code></pre><p>之后再次安装fwupdate </p><pre><code class="bash">yum install -y fwupdate</code></pre><p>更新以上软件之后，开始安装图形界面包<br>当出现 Complete！说明安装成功。<br>这时，我们可以通过命令 startx 进入图形界面，第一次进入会比较慢，请耐心等待。（可能需要重启，命令为reboot）</p><h2 id="更新系统的默认运行级别"><a href="#更新系统的默认运行级别" class="headerlink" title="更新系统的默认运行级别"></a>更新系统的默认运行级别</h2><p>经过上面的操作，系统启动默认还是命令行页面的，需要我们进行切换。如果想要使系统启动即为图形化窗口，需要执行下面的命令</p><pre><code class="bash">systemctl set-deafult graphical.target</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 教程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> CentOS </tag>
+            
+            <tag> GNOME </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Mc服务器搭建</title>
+      <link href="/2020/04/09/mc-server/"/>
+      <url>/2020/04/09/mc-server/</url>
+      
+        <content type="html"><![CDATA[<p>手里有台阿里云的服务器，就想开个mc的服务器玩玩</p><h1 id="服务器配置"><a href="#服务器配置" class="headerlink" title="服务器配置"></a>服务器配置</h1><p>操作系统： CentOS 7.4 64位<br>CPU： 2核<br>内存： 2 GiB<br>宽带： 1Mbps</p><h1 id="MC服务器搭建"><a href="#MC服务器搭建" class="headerlink" title="MC服务器搭建"></a>MC服务器搭建</h1><h2 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h2><p>首先通过ssh软件远程连接到主机，这里推荐xshell，输入主机ip和端口，默认22，输入用户名和密码即可连接<br>mc服务端是一个jar文件，运行mc服务端需要java环境支持,执行以下命令安装java</p><pre><code class="bash">#使用yum安装javayum install -y java#查看java版本，确认安装成功java -versionopenjdk version &quot;1.8.0_191&quot;OpenJDK Runtime Environment (build 1.8.0_191-b12)OpenJDK 64-Bit Server VM (build 25.191-b12, mixed mode)</code></pre><p>因为访问mc服务端时，默认连接服务器25565端口，因此需要打开此端口，也可以自行修改默认端口<br> · Linux关闭防火墙或者放通25565端口<br> · 阿里云控制台配置安全规则，放通25565端口<br> 关闭主机防火墙</p><pre><code class="bash">systemctl stop firewalld &amp;&amp; systemctl disable firewalld</code></pre><p>阿里云主机放通25565端口：<br><img src="https://i.loli.net/2020/04/09/Z4PoFJtSDATMqzN.png" alt="端口"></p><h2 id="创建服务端安装目录"><a href="#创建服务端安装目录" class="headerlink" title="创建服务端安装目录"></a>创建服务端安装目录</h2><p>在/opt/下创建目录server，统一存放服务端jar文件、配置文件以及玩家数据。</p><pre><code class="bash">mkdir /opt/minecraft/server</code></pre><p>查看创建的目录</p><pre><code class="bash">ll /opt/</code></pre><h2 id="下载服务器核心jar包"><a href="#下载服务器核心jar包" class="headerlink" title="下载服务器核心jar包"></a>下载服务器核心jar包</h2><p> · MC服务端核心分为官方版本和其他版本，下面是部分服务端下载链接：<br> · 官方服务端：<a href="https://minecraft.net/zh-hans/download/server/" target="_blank" rel="noopener">https://minecraft.net/zh-hans/download/server/</a><br> · 官方服务端：<a href="https://mcversions.net/" target="_blank" rel="noopener">https://mcversions.net/</a><br> · papermc服务端：<a href="https://papermc.io/downloads" target="_blank" rel="noopener">https://papermc.io/downloads</a><br> · spigot服务端：<a href="https://hub.spigotmc.org/jenkins/job/BuildTools/" target="_blank" rel="noopener">https://hub.spigotmc.org/jenkins/job/BuildTools/</a><br> · sponge服务端：<a href="https://www.spongepowered.org/" target="_blank" rel="noopener">https://www.spongepowered.org/</a></p><pre><code class="bash">#下载papermc wget -P /opt/server/ 下载链接 #查看下载的jar文件ll /opt/server/#为了方便区分，将jar文件重新命名为server.jar：cd /opt/minecraft/mv *.jar server.jar</code></pre><h2 id="运行MC服务器端"><a href="#运行MC服务器端" class="headerlink" title="运行MC服务器端"></a>运行MC服务器端</h2><pre><code class="bash">cd /opt/server/java -Xmx1024M -Xms1024M -jar server.jar nogui</code></pre><p>命令说明：<br> · -Xms:初始启动分配的内存（-Xms1024m）<br> · -Xmx:最大分配的内存（-Xmx2048m）<br> · nogui:用于以基于文本的界面来显示，可减少内存使用。如果使用图形化界面，移除nogui选项。<br>首次启动会失败，配置文件目录下会生成一个eula.txt 文件，用vim打开，将 eula = false 更改为 eula = true，并保存文件，表示同意许可协议，然后重新执行启动命令：</p><pre><code class="bash">sed -i &#39;s/eula=false/eula=true/g&#39; eula.txtjava -Xmx1024M -Xms1024M -jar server.jar nogui</code></pre><p>也可以手动更改：</p><pre><code class="bash">vim eula.txt  //按i键进入编辑模式，把 false 改为 trueeula=truevim server.propertices  // 把正版验证服务online-mode改为 falseonline-mode:false</code></pre><h2 id="后台运行mc服务端"><a href="#后台运行mc服务端" class="headerlink" title="后台运行mc服务端"></a>后台运行mc服务端</h2><p>运行服务端后命令行界面就被占用，无法执行其他操作，只能通过CTRL+C结束服务，所以我们使用nohup命令让其在后台执行：</p><pre><code class="bash">nohup java -Xmx1024M -Xms1024M -jar server.jar nogui &gt; /root/server.log &amp;</code></pre><h2 id="创建启动脚本"><a href="#创建启动脚本" class="headerlink" title="创建启动脚本"></a>创建启动脚本</h2><p>由于执行启动命令太繁琐，这里将上面的启动命令写入脚本，下次执行脚本即可快速启动服务端：</p><pre><code class="bash">vim start_server.sh#!/bin/bashcd /opt/servernohup java -Xmx1024M -Xms1024M -jar server.jar nogui &gt;/root/server.log &amp;tail -f /root/server.log</code></pre><p>通过下面的命令可以方便地运行服务端：</p><pre><code class="bash">bash start_server.sh</code></pre><p>使用CTRL+C退出信息打印，服务端将继续在后台运行。<br>验证是否运行成功：</p><pre><code class="bash">ps -ef | grep javaroot     17922 10.4 18.2 3679400 708512 pts/0  Sl   17:24   1:01 java -Xmx1024M -Xms1024M -jar server.jar nogui</code></pre><p>也可以查看运行日志，nohup默认会输出日志到nohup.out，这里已经用 &gt; 命令重新指定输出文件server.log：</p><pre><code class="bash">cat /root/server.log</code></pre><h1 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h1><p>查看主配置文件server.properties，其中大部分配置在这里进行修改，修改配置后需要重新启动才能生效。</p><p>引用：<br>  <a href="https://blog.csdn.net/networken/article/details/84477537" target="_blank" rel="noopener">https://blog.csdn.net/networken/article/details/84477537</a><br>  <a href="https://www.jianshu.com/p/63faa0abfeac" target="_blank" rel="noopener">https://www.jianshu.com/p/63faa0abfeac</a><br>  <a href="https://www.linuxidc.com/Linux/2018-04/152000.htm" target="_blank" rel="noopener">https://www.linuxidc.com/Linux/2018-04/152000.htm</a><br>  <a href="https://jingyan.baidu.com/article/d45ad148d8911729542b805d.html" target="_blank" rel="noopener">https://jingyan.baidu.com/article/d45ad148d8911729542b805d.html</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 教程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Minecraft </tag>
+            
+            <tag> CentOS </tag>
+            
+            <tag> VNC </tag>
+            
+            <tag> Linux </tag>
+            
+            <tag> 阿里云 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Hexo博客搭建</title>
+      <link href="/2020/04/02/blog/"/>
+      <url>/2020/04/02/blog/</url>
+      
+        <content type="html"><![CDATA[<p>第一次开始搭建自己的博客，用的是Hexo框架，需要用到的有Git和Node.js。</p><h1 id="Hexo-介绍"><a href="#Hexo-介绍" class="headerlink" title="Hexo 介绍"></a>Hexo 介绍</h1><p><a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> 是一个快速、简洁且高效的博客框架。<a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。</p><h1 id="Hexo-安装"><a href="#Hexo-安装" class="headerlink" title="Hexo 安装"></a>Hexo 安装</h1><h2 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h2><p><a href="http://nodejs.org/" target="_blank" rel="noopener">Node.js</a> (Node.js 版本需不低于 8.10，建议使用 Node.js 10.0 及以上版本)<br>Node.js 为大多数平台提供了官方的 <a href="https://nodejs.org/en/download/" target="_blank" rel="noopener">安装程序</a>。对于中国大陆地区用户，可以前往 <a href="https://npm.taobao.org/mirrors/node" target="_blank" rel="noopener">淘宝 Node.js 镜像</a> 下载。</p><h2 id="安装Git"><a href="#安装Git" class="headerlink" title="安装Git"></a>安装Git</h2><p><a href="http://git-scm.com/" target="_blank" rel="noopener">Git</a><br>Windows：下载并安装 <a href="https://git-scm.com/download/win" target="_blank" rel="noopener">git</a>.<br>Linux (Ubuntu, Debian)：</p><pre><code class="bash">sudo apt-get install git-core</code></pre><p>Linux (Fedora, Red Hat, CentOS)：</p><pre><code class="bash">sudo yum install git-core</code></pre><h2 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h2><p>所有必备的应用程序安装完成后，即可使用 npm 安装 Hexo。</p><pre><code class="bash">$ npm install -g hexo-cli</code></pre><p>安装 Hexo 完成后，执行下列命令，Hexo 将会在指定文件夹中新建所需要的文件。</p><pre><code class="bash">$ hexo init &lt;folder&gt;$ cd &lt;folder&gt;$ npm install</code></pre><p>新建完成后，用ls查看指定文件夹的目录如下：</p><pre><code class="bash">.├── _config.yml├── package.json├── scaffolds├── source|   ├── _drafts|   └── _posts└── themes</code></pre><h2 id="config-yml"><a href="#config-yml" class="headerlink" title="config.yml"></a>config.yml</h2><p>网站的<a href="https://hexo.io/zh-cn/docs/configuration" target="_blank" rel="noopener">配置</a>信息，可以在此配置大部分的参数,也是用到最多的一个文件。</p><h2 id="package-json"><a href="#package-json" class="headerlink" title="package.json"></a>package.json</h2><p>应用程序的信息，可以自由移除。</p><pre><code class="bash">{  &quot;name&quot;: &quot;hexo-site&quot;,  &quot;version&quot;: &quot;0.0.0&quot;,  &quot;private&quot;: true,  &quot;hexo&quot;: {    &quot;version&quot;: &quot;&quot;  },  &quot;dependencies&quot;: {    &quot;hexo&quot;: &quot;^3.8.0&quot;,    &quot;hexo-generator-archive&quot;: &quot;^0.1.5&quot;,    &quot;hexo-generator-category&quot;: &quot;^0.1.3&quot;,    &quot;hexo-generator-index&quot;: &quot;^0.2.1&quot;,    &quot;hexo-generator-tag&quot;: &quot;^0.2.0&quot;,    &quot;hexo-renderer-ejs&quot;: &quot;^0.3.1&quot;,    &quot;hexo-renderer-stylus&quot;: &quot;^0.3.3&quot;,    &quot;hexo-renderer-marked&quot;: &quot;^0.3.2&quot;,    &quot;hexo-server&quot;: &quot;^0.3.3&quot;  }}</code></pre><h2 id="scaffolds"><a href="#scaffolds" class="headerlink" title="scaffolds"></a>scaffolds</h2><p><a href="https://hexo.io/zh-cn/docs/writing" target="_blank" rel="noopener">模版</a> 文件夹。新建文章时，Hexo 会根据 scaffold 来建立文件。<br>模板是指在新建的文章文件中默认填充的内容。</p><h2 id="source"><a href="#source" class="headerlink" title="source"></a>source</h2><p>资源文件夹是存放用户资源的地方。除 posts 文件夹之外，开头命名为 _ (下划线)的文件 / 文件夹和隐藏的文件将会被忽略。Markdown 和 HTML 文件会被解析并放到 public 文件夹，而其他文件会被拷贝过去。</p><h2 id="themes"><a href="#themes" class="headerlink" title="themes"></a>themes</h2><p><a href="https://hexo.io/zh-cn/docs/themes" target="_blank" rel="noopener">主题</a> 文件夹。Hexo 会根据主题来生成静态页面。</p><h1 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h1><h2 id="init"><a href="#init" class="headerlink" title="init"></a>init</h2><pre><code class="bash">$ hexo init [folder]</code></pre><p>新建一个网站。如果没有设置 folder ，Hexo 默认在目前的文件夹建立网站。</p><h2 id="new"><a href="#new" class="headerlink" title="new"></a>new</h2><pre><code class="bash">$ hexo new [layout] &lt;title&gt;</code></pre><p>新建一篇文章。如果没有设置 layout 的话，默认使用 config.yml 中的 default_layout 参数代替。如果标题包含空格的话，需要使用引号括起来。</p><pre><code class="bash">$ hexo new &quot;post title with whitespace&quot;</code></pre><h2 id="generate"><a href="#generate" class="headerlink" title="generate"></a>generate</h2><pre><code class="bash">$ hexo generate</code></pre><p>生成静态文件。<br>-d, –deploy    文件生成后立即部署网站<br>-w, –watch    监视文件变动<br>-b, –bail    生成过程中如果发生任何未处理的异常则抛出异常<br>-f, –force    强制重新生成文件<br>Hexo 引入了差分机制，如果 public 目录存在，那么 hexo g 只会重新生成改动的文件。<br>使用该参数的效果接近 hexo clean &amp;&amp; hexo generate<br>-c, –concurrency    最大同时生成文件的数量，默认无限制<br>可以简写为</p><pre><code class="bash">$ hexo g</code></pre><h2 id="publish"><a href="#publish" class="headerlink" title="publish"></a>publish</h2><pre><code class="bash">$ hexo publish [layout] &lt;filename&gt;</code></pre><p>发表草稿。</p><h2 id="server"><a href="#server" class="headerlink" title="server"></a>server</h2><pre><code class="bash">$ hexo serve</code></pre><p>启动服务器。默认情况下，访问网址为： <a href="http://localhost:4000/。" target="_blank" rel="noopener">http://localhost:4000/。</a><br>-p, –port    重设端口<br>-s, –static    只使用静态文件<br>-l, –log    启动日记记录，使用覆盖记录格式</p><h2 id="deploy"><a href="#deploy" class="headerlink" title="deploy"></a>deploy</h2><pre><code class="bash">$ hexo deploy</code></pre><p>-g, –generate    部署之前预先生成静态文件</p><h2 id="migrate"><a href="#migrate" class="headerlink" title="migrate"></a>migrate</h2><pre><code class="bash">$ hexo migrate &lt;type&gt;</code></pre><p>从其他博客系统 <a href="https://hexo.io/zh-cn/docs/migration" target="_blank" rel="noopener">迁移内容</a>。</p><h2 id="clean"><a href="#clean" class="headerlink" title="clean"></a>clean</h2><pre><code class="bash">$ hexo clean</code></pre><p>清除缓存文件 (db.json) 和已生成的静态文件 (public)。<br>在某些情况（尤其是更换主题后），如果发现对站点的更改无论如何也不生效，可能需要运行该命令。</p><h2 id="安全模式"><a href="#安全模式" class="headerlink" title="安全模式"></a>安全模式</h2><pre><code class="bash">$ hexo --safe</code></pre><p>在安全模式下，不会载入插件和脚本。在安装新插件遭遇问题时，可以尝试以安全模式重新执行。</p><h2 id="自定义配置文件的路径"><a href="#自定义配置文件的路径" class="headerlink" title="自定义配置文件的路径"></a>自定义配置文件的路径</h2><pre><code class="bash"># 使用 custom.yml 代替默认的 _config.yml$ hexo server --config custom.yml# 使用 custom.yml 和 custom2.json，其中 custom2.json 优先级更高$ hexo generate --config custom.yml,custom2.json,custom3.yml</code></pre><p>自定义配置文件的路径，指定这个参数后将不再使用默认的 config.yml。</p><h1 id="Hexo即时预览"><a href="#Hexo即时预览" class="headerlink" title="Hexo即时预览"></a>Hexo即时预览</h1><h2 id="方法一：用hexo-browsersync插件"><a href="#方法一：用hexo-browsersync插件" class="headerlink" title="方法一：用hexo-browsersync插件"></a>方法一：用hexo-browsersync插件</h2><pre><code class="bash">$ npm install hexo-browsersync --save</code></pre><p>安装好后，不需任何设置，直接打开hexo s即可。<br>修改文章后，当你按下Ctrl+S保存时，页面自动刷新产生改变，同时右上角显示Connected to BrowserSync字样。</p><h2 id="方法二：用hexo-livereload插件"><a href="#方法二：用hexo-livereload插件" class="headerlink" title="方法二：用hexo-livereload插件"></a>方法二：用hexo-livereload插件</h2><pre><code class="bash">$ npm install hexo-livereload --save</code></pre><p>然后在站点的_config.yml中配置 livereload 的端口为35729：</p><pre><code class="bash">livereload:  port: 35729</code></pre><p>经过测试，不设置端口也可以。<br>然后我们随便打开一篇博文，修改后保存，然后直接使用hexo s命令启动服务预览，在保持服务启动的状态下，再次修改该文章，记住要保存，然后刷新<a href="http://localhost:4000" target="_blank" rel="noopener">http://localhost:4000</a> 即可看到变化。</p><h2 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h2><p>如果使用hexo-browsersync，在连接网络的情况下，启动服务hexo s能很快地打开；而在没有网络的情况下，输入hexo s后至少要过5分钟才能启动服务进行预览。但保存后不用刷新即可看到变化。<br>而hexo-livereload在无论离线还是有网时都能很快打开，但是保存后需要手动刷新才能看到变化。</p><p>引用：<br>  <a href="https://starwindy.oschina.io/2015/05/07/Hexo%E4%B8%8D%E9%87%8D%E6%96%B0%E7%94%9F%E6%88%90%E4%B9%9F%E5%8F%AF%E9%A2%84%E8%A7%88/" target="_blank" rel="noopener">https://starwindy.oschina.io/2015/05/07/Hexo%E4%B8%8D%E9%87%8D%E6%96%B0%E7%94%9F%E6%88%90%E4%B9%9F%E5%8F%AF%E9%A2%84%E8%A7%88/</a><br>  <a href="https://hexo.io/docs/" target="_blank" rel="noopener">https://hexo.io/docs/</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 教程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Hexo </tag>
+            
+            <tag> Git </tag>
+            
+            <tag> Nodejs </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Hello World</title>
+      <link href="/2020/04/02/hello-world/"/>
+      <url>/2020/04/02/hello-world/</url>
+      
+        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre><code class="bash">$ hexo new &quot;My New Post&quot;</code></pre><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre><code class="bash">$ hexo server</code></pre><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre><code class="bash">$ hexo generate</code></pre><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre><code class="bash">$ hexo deploy</code></pre><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Hello World </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Hello World </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
+</search>
