@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="/"/>
-  <updated>2020-04-03T09:29:38.000Z</updated>
+  <updated>2020-08-24T07:59:36.001Z</updated>
   <id>/</id>
   
   <author>
@@ -17,10 +17,56 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>bilibili video test</title>
+    <link href="/2020/08/24/bilibili/"/>
+    <id>/2020/08/24/bilibili/</id>
+    <published>2020-08-24T07:57:35.000Z</published>
+    <updated>2020-08-24T07:59:36.001Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;div style=&quot;position: relative; width: 100%; height: 0; padding-bottom: 75%;&quot;&gt;&lt;iframe
+        
+      
+    
+    </summary>
+    
+      <category term="视频" scheme="/categories/%E8%A7%86%E9%A2%91/"/>
+    
+    
+      <category term="video" scheme="/tags/video/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>PSV3.65破解+固化</title>
+    <link href="/2020/07/28/PSV/"/>
+    <id>/2020/07/28/PSV/</id>
+    <published>2020-07-28T02:23:05.000Z</published>
+    <updated>2020-08-24T07:47:48.496Z</updated>
+    
+    <summary type="html">
+    
+      PSV3.65破解教程
+    
+    </summary>
+    
+      <category term="教程" scheme="/categories/%E6%95%99%E7%A8%8B/"/>
+    
+    
+      <category term="PSV" scheme="/tags/PSV/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Hello World</title>
-    <link href="/2020/07/25/hello-world/"/>
-    <id>/2020/07/25/hello-world/</id>
-    <published>2020-07-25T12:32:20.322Z</published>
+    <link href="/2020/07/28/hello-world/"/>
+    <id>/2020/07/28/hello-world/</id>
+    <published>2020-07-28T01:30:48.277Z</published>
     <updated>2020-04-03T09:29:38.000Z</updated>
     
     <summary type="html">
@@ -47,17 +93,11 @@
     <link href="/2020/04/22/GNOME/"/>
     <id>/2020/04/22/GNOME/</id>
     <published>2020-04-22T08:22:11.000Z</published>
-    <updated>2020-04-22T08:56:18.000Z</updated>
+    <updated>2020-08-24T07:43:27.222Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;h1 id=&quot;CentOS桌面安装&quot;&gt;&lt;a href=&quot;#CentOS桌面安装&quot; class=&quot;headerlink&quot; title=&quot;CentOS桌面安装&quot;&gt;&lt;/a&gt;CentOS桌面安装&lt;/h1&gt;&lt;p&gt;CentOS 7 默认是没有图形化界面的，但在习惯了 Windows
-        
-      
+      CentOS图形化界面安装记录
     
     </summary>
     
@@ -71,22 +111,15 @@
   </entry>
   
   <entry>
-    <title>mc服务器搭建</title>
+    <title>MC服务器搭建</title>
     <link href="/2020/04/09/mc-server/"/>
     <id>/2020/04/09/mc-server/</id>
     <published>2020-04-09T07:28:35.000Z</published>
-    <updated>2020-04-22T08:54:22.000Z</updated>
+    <updated>2020-08-24T07:47:21.511Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;p&gt;手里有台阿里云的服务器，就想开个mc的服务器玩玩&lt;/p&gt;
-&lt;h1 id=&quot;服务器配置&quot;&gt;&lt;a href=&quot;#服务器配置&quot; class=&quot;headerlink&quot; title=&quot;服务器配置&quot;&gt;&lt;/a&gt;服务器配置&lt;/h1&gt;&lt;p&gt;操作系统： CentOS 7.4
-        
-      
+      MC服务器
     
     </summary>
     
@@ -110,18 +143,11 @@
     <link href="/2020/04/02/blog/"/>
     <id>/2020/04/02/blog/</id>
     <published>2020-04-02T13:28:07.000Z</published>
-    <updated>2020-04-09T07:26:56.000Z</updated>
+    <updated>2020-08-24T07:42:27.730Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;p&gt;第一次开始搭建自己的博客，用的是Hexo框架，需要用到的有Git和Node.js。&lt;/p&gt;
-&lt;h1 id=&quot;Hexo-介绍&quot;&gt;&lt;a href=&quot;#Hexo-介绍&quot; class=&quot;headerlink&quot; title=&quot;Hexo 介绍&quot;&gt;&lt;/a&gt;Hexo
-        
-      
+      Hexo博客搭建记录
     
     </summary>
     
